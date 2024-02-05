@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+    *{
+        text-transform: capitalize;
+        margin: 0%;
+        padding: 0%;
+
+    }
+
+    body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-size: 22px;
+    }
+    .con{
+        display: block;
+        text-align: center;
+    
+        
+    }
+    h1,button,p{
+        padding: 20px;
+    }
+   
+
+    button{
+        background-color: green;
+        padding: 10px;
+        color: white;
+        border: none;
+        outline: none;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+    <div class="con">
+    <h1>joke genrator</h1>
+
+    <button onclick="joke()">Genrate</button>
+    <p id="show"></p>
+</div>
+
+    <script>
+
+        function joke(){
+            fetch("s://v2.jokeapi.dev/joke/Any")
+            .then(Response=>{
+                return Response.json()
+            })
+            .then(jokeData=>{
+                console.log(jokeData)
+            if(jokeData.type === "twopart"){
+                document.getElementById("show").innerHTML=`<strong>${jokeData.setup}</strong><br>${jokeData.delivery}`
+            }else{
+                document.getElementById("show").innerHTML=`<strong>${jokeData.delivery}</strong>`
+            }
+        })
+        .catch(Error=>{
+            console.log("the api is not working" ,Error)
+        })
+
+        }
+    
+
+    </script>
+    
+</body>
+</html>
